@@ -1,0 +1,11 @@
+{
+  "Completed": "2026-10-18T22:49:40.5093193+08:00",
+  "Retained": "D:\\CodexProject\\Civ6Dictionary",
+  "Removed": [
+    "outputs",
+    "work",
+    "Civ6EnglishDemo.code-workspace",
+    "migration-report.json"
+  ],
+  "LegacyDatabaseRemoved": true
+}
