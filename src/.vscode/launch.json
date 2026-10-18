@@ -1,0 +1,6 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {"name": "调试文明 VI 英文 DEMO", "type": "coreclr", "request": "launch", "preLaunchTask": "编译 DEMO", "program": "${workspaceFolder}/bin/Release/net10.0-windows/Civ6EnglishDemo.exe", "env": {"DOTNET_ROOT": "${workspaceFolder}/../tools/dotnet"}, "cwd": "${workspaceFolder}", "console": "internalConsole", "stopAtEntry": false}
+  ]
+}

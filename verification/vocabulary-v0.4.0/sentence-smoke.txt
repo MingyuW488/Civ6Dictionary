@@ -1,0 +1,2 @@
+PASS Real OCR followed by whole-paragraph transfer; selected sentence transfer; punctuation and source preservation; wrapped lines joined; word-chip regression; empty source and selection guidance; oversized source rejected without truncation; transfer disabled during lookup; complete query submitted once to a simulated translation endpoint.
+No real keys or external API calls were used.

@@ -1,0 +1,1 @@
+PASS Project-relative personal database; SQLite integrity; actual main window initialization; local dictionary and syllables. No translation requests or personal data edits.

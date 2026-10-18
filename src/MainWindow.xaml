@@ -1,0 +1,125 @@
+<Window x:Class="Civ6EnglishDemo.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:Civ6EnglishDemo" Title="文明 VI · 英文学习实验室" Width="1180" Height="820" MinWidth="960" MinHeight="660" WindowStartupLocation="CenterScreen" FontFamily="Microsoft YaHei UI" FontSize="14" Background="#F3F5F8" Foreground="#243447">
+ <DockPanel Margin="24" Background="#F3F5F8">
+  <StackPanel DockPanel.Dock="Top" Margin="0,0,0,16">
+   <TextBlock Text="文明 VI · 英文学习实验室" FontSize="27" FontWeight="SemiBold"/>
+   <TextBlock Text="截图取词 · 本地中英文词典 · 国内在线翻译 · 本地笔记" Foreground="#64748B" Margin="0,6,0,0"/>
+  </StackPanel>
+  <Border DockPanel.Dock="Bottom" Background="#E5EBF2" Padding="10" Margin="0,12,0,0"><TextBlock x:Name="Status" Text="就绪：先打开示例图片，或按 Ctrl + Alt + D 框选屏幕。" TextWrapping="Wrap"/></Border>
+  <TabControl x:Name="Tabs" Background="White" BorderBrush="#D6DFE9">
+   <TabItem Header="① 截图与识别">
+    <Grid Margin="16">
+     <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+     <WrapPanel>
+      <Button x:Name="CaptureButton" Content="框选屏幕  Ctrl+Alt+D" Click="Capture_Click" Background="#D9EDE9"/>
+      <Button Content="打开图片并框选" Click="Open_Click"/>
+      <Button Content="打开示例" Click="Sample_Click"/>
+      <Button x:Name="RecognizeButton" Content="重新识别" Click="Recognize_Click"/>
+      <CheckBox x:Name="Preprocess" Content="放大 2 倍 / 自动适配明暗" IsChecked="True" VerticalAlignment="Center" Margin="10,0,0,8"/>
+     </WrapPanel>
+     <Grid Grid.Row="1">
+      <Grid.ColumnDefinitions><ColumnDefinition Width="1.1*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+      <Grid>
+       <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+       <GroupBox Header="选区预览"><ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"><Image x:Name="Preview" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/></ScrollViewer></GroupBox>
+       <StackPanel Grid.Row="1" Margin="0,0,12,0">
+        <TextBlock x:Name="OcrMetrics" Text="识别完全在本地进行，截图不会上传。" TextWrapping="Wrap" Margin="0,0,0,10"/>
+        <Button Content="导出测试记录 CSV" Click="Export_Click" HorizontalAlignment="Left"/>
+       </StackPanel>
+      </Grid>
+      <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+       <StackPanel Margin="4,0,0,0">
+        <TextBlock Text="识别文本（可修正后作为原句保存）" FontWeight="SemiBold"/>
+        <TextBox x:Name="ContextText" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="130" VerticalContentAlignment="Top" VerticalScrollBarVisibility="Auto"/>
+        <WrapPanel>
+         <Button x:Name="TransferAllButton" Content="整句 / 整段填入查询栏" Click="TransferAll_Click" Background="#D9EDE9" ToolTip="填入全部识别文本，并将换行合并为空格；随后点击查词 / 翻译"/>
+         <Button x:Name="TransferSelectedButton" Content="选中文字填入" Click="TransferSelected_Click" ToolTip="先在上方识别文本中选中一句或一段，再点击此按钮"/>
+        </WrapPanel>
+        <TextBlock Text="点击单词，送到查询栏" FontWeight="SemiBold" Margin="0,0,0,8"/>
+        <WrapPanel x:Name="WordPanel"/>
+        <TextBlock Text="查询单词、短语或整句" FontWeight="SemiBold" Margin="0,12,0,0"/>
+        <TextBox x:Name="QueryText" Text="yield" KeyDown="Query_KeyDown" TextWrapping="Wrap" MaxHeight="110" VerticalContentAlignment="Top" VerticalScrollBarVisibility="Auto"/>
+        <WrapPanel><Button x:Name="LookupButton" Content="查词 / 翻译" Click="Lookup_Click" Background="#D9EDE9"/><Button Content="保存原句与笔记" Click="SaveNote_Click"/></WrapPanel>
+        <TextBlock Text="个人笔记"/><TextBox x:Name="NoteText" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="65" VerticalContentAlignment="Top"/>
+        <TextBlock x:Name="LookupResult" Text="点击“查词 / 翻译”查看词性、中英文释义与词形。本地查词无需密钥。" TextWrapping="Wrap" Foreground="#38546D" Margin="0,6,0,12"/>
+       </StackPanel>
+      </ScrollViewer>
+     </Grid>
+    </Grid>
+   </TabItem>
+   <TabItem Header="② 接口与测速">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+     <Grid Margin="16">
+      <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="1.3*"/></Grid.ColumnDefinitions>
+      <StackPanel Margin="0,0,20,0">
+       <TextBlock Text="国内文本翻译接口" FontSize="19" FontWeight="SemiBold"/>
+       <TextBlock Text="有道 NMT 使用“应用 ID + 应用密钥”。请从同一个 API 应用复制，两项不能互换。" TextWrapping="Wrap" Foreground="#64748B" Margin="0,8,0,12"/>
+       <ComboBox x:Name="Provider" SelectedIndex="0" Padding="8" Margin="0,0,0,12"><ComboBoxItem Content="有道智云 · 文本翻译（NMT）"/><ComboBoxItem Content="百度翻译 · 通用翻译"/></ComboBox>
+       <TextBlock Text="应用 ID（有道 appKey / 百度 APP ID）"/><TextBox x:Name="AppId"/>
+       <TextBlock Text="同一应用的应用密钥（App Secret，不保存）"/><PasswordBox x:Name="Secret"/>
+       <CheckBox IsChecked="True" IsEnabled="False" Content="直接连接，禁用 HTTP 系统代理" Margin="0,0,0,12"/>
+       <TextBlock Text="请自行关闭 VPN / TUN；程序无法判断系统级流量是否被接管。测速会真实调用接口并可能产生费用。" TextWrapping="Wrap" Foreground="#64748B" Margin="0,0,0,16"/>
+       <TextBlock Text="测速样本（每行一条，最多 100 条 / 每条 2000 字符）"/>
+       <TextBox x:Name="SamplesText" AcceptsReturn="True" TextWrapping="Wrap" Height="130" VerticalContentAlignment="Top" VerticalScrollBarVisibility="Auto" Text="yield&#10;district&#10;suzerainty&#10;trade route&#10;great person&#10;Your cities gain additional production."/>
+       <WrapPanel><Button x:Name="BenchmarkButton" Content="开始逐条测速" Click="Benchmark_Click"/><Button x:Name="CancelButton" Content="停止" Click="Cancel_Click" IsEnabled="False"/><Button Content="导出记录 CSV" Click="Export_Click"/></WrapPanel>
+      </StackPanel>
+      <StackPanel Grid.Column="1">
+       <TextBlock Text="测试结果" FontSize="19" FontWeight="SemiBold"/>
+       <TextBlock x:Name="NetworkMetrics" Text="尚未测试。连接、服务处理及完整接收均计入耗时。" TextWrapping="Wrap" Margin="0,10,0,14"/>
+       <TextBlock Text="每次请求间隔至少 1.2 秒；单次超时 8 秒。无自动重试和应用缓存。第一条包含冷连接开销，后续可能复用连接。" TextWrapping="Wrap" Foreground="#64748B" Margin="0,0,0,12"/>
+       <TextBox x:Name="NetworkLog" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top" VerticalScrollBarVisibility="Auto" Height="350"/>
+       <TextBlock Text="成功延迟的 P95 与失败率分开统计。少量样本只适合初筛，建议在不同时段重复测试。导出仅包含查询词、耗时与状态，不含密钥及接口译文。" TextWrapping="Wrap" Foreground="#64748B"/>
+      </StackPanel>
+     </Grid>
+    </ScrollViewer>
+   </TabItem>
+   <TabItem Header="③ 本地笔记">
+    <DockPanel Margin="16">
+     <StackPanel DockPanel.Dock="Top"><TextBlock Text="保存你自己的理解与游戏原句" FontSize="19" FontWeight="SemiBold"/><TextBlock Text="双击查看完整原句与笔记；在详情中点击“修改”，或选中一行后点击“修改笔记”。" TextWrapping="Wrap" Foreground="#64748B" Margin="0,8,0,12"/><WrapPanel><Button Content="修改笔记" Click="EditSelectedNote_Click" Background="#D4EAE4"/><Button Content="刷新" Click="Refresh_Click"/><Button Content="导出笔记 CSV" Click="ExportNotes_Click"/><Button Content="打开数据目录" Click="DataFolder_Click"/></WrapPanel></StackPanel>
+     <DataGrid x:Name="NotesGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" MouseDoubleClick="Notes_DoubleClick" SelectionMode="Single">
+      <DataGrid.Columns><DataGridTextColumn Header="时间" Binding="{Binding Created}" Width="150"/><DataGridTextColumn Header="词 / 短语" Binding="{Binding Word}" Width="140"/><DataGridTextColumn Header="游戏原句" Binding="{Binding Context}" Width="*"/><DataGridTextColumn Header="笔记" Binding="{Binding Note}" Width="*"/></DataGrid.Columns>
+     </DataGrid>
+    </DockPanel>
+   </TabItem>
+   <TabItem Header="④ 词典详情">
+    <DockPanel Margin="18">
+     <StackPanel DockPanel.Dock="Top" Margin="0,0,0,12">
+      <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+       <TextBox x:Name="DictionaryQuery" Text="{Binding Text, ElementName=QueryText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyDown="Query_KeyDown" FontSize="18" Margin="0,0,12,8" TextWrapping="Wrap" MaxHeight="110" VerticalContentAlignment="Top" VerticalScrollBarVisibility="Auto"/>
+       <Button x:Name="DictionaryLookup" Grid.Column="1" Content="查词 / 翻译" Click="Lookup_Click" Background="#D9EDE9"/>
+       <Button Grid.Column="2" Content="原句与笔记" Click="BackToNotes_Click"/>
+      </Grid>
+      <CheckBox x:Name="OnlineSupplement" Content="联网补充翻译（使用已配置的有道 / 百度接口）" IsChecked="True" Margin="0,0,0,8"/>
+      <WrapPanel><Button x:Name="CollectVocabularyButton" Content="☆ 收藏到生词本" Click="CollectVocabulary_Click"/><Button Content="打开生词本" Click="OpenVocabulary_Click"/></WrapPanel>
+     </StackPanel>
+     <local:DictionaryView x:Name="DictionaryCard"/>
+    </DockPanel>
+   </TabItem>
+   <TabItem Header="⑤ 生词本">
+    <DockPanel Margin="16">
+     <StackPanel DockPanel.Dock="Top">
+      <TextBlock Text="我的生词本" FontSize="19" FontWeight="SemiBold"/>
+      <TextBlock Text="按英文、中文释义、词性、原句或笔记搜索。双击词条查词；选中后可查看完整内容。" TextWrapping="Wrap" Foreground="#64748B" Margin="0,8,0,8"/>
+      <TextBlock Text="搜索（留空显示全部）"/>
+      <TextBox x:Name="VocabularySearch" TextChanged="VocabularySearch_Changed" ToolTip="输入搜索内容，留空显示全部"/>
+      <WrapPanel>
+       <Button x:Name="ImportVocabularyButton" Content="导入已有笔记" Click="ImportVocabulary_Click"/>
+       <Button Content="刷新" Click="RefreshVocabulary_Click"/>
+       <Button x:Name="VocabularyLookupButton" Content="查看词典" Click="LookupVocabulary_Click"/>
+       <Button x:Name="RemoveVocabularyButton" Content="移出生词本" Click="RemoveVocabulary_Click"/>
+       <Button Content="导出全部 CSV" Click="ExportVocabulary_Click"/>
+      </WrapPanel>
+      <WrapPanel><Button x:Name="VocabularyPrevious" Content="上一页" Click="VocabularyPrevious_Click"/><Button x:Name="VocabularyNext" Content="下一页" Click="VocabularyNext_Click"/><TextBlock x:Name="VocabularyCount" VerticalAlignment="Center" Margin="8"/></WrapPanel>
+     </StackPanel>
+     <Grid>
+      <Grid.RowDefinitions><RowDefinition Height="3*"/><RowDefinition Height="5"/><RowDefinition Height="2*"/></Grid.RowDefinitions>
+      <DataGrid x:Name="VocabularyGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single" SelectionChanged="VocabularySelection_Changed" MouseDoubleClick="Vocabulary_DoubleClick" EnableRowVirtualization="True">
+       <DataGrid.Columns><DataGridTextColumn Header="单词 / 短语" Binding="{Binding Word}" Width="180"/><DataGridTextColumn Header="词性" Binding="{Binding Pos}" Width="160"/><DataGridTextColumn Header="中文释义" Binding="{Binding Meaning}" Width="*"/></DataGrid.Columns>
+      </DataGrid>
+      <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch"/>
+      <TextBox x:Name="VocabularyDetail" Grid.Row="2" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Top" Text="在上方选中一个词，查看收藏时的原句、笔记和关联笔记。"/>
+     </Grid>
+    </DockPanel>
+   </TabItem>
+  </TabControl>
+ </DockPanel>
+</Window>

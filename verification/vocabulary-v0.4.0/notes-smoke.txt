@@ -1,0 +1,3 @@
+PASS Actual row double-click; full long text; scrolling and selection; resized layout; close preserves unsaved editor; non-row ignored; editing word/context/note; cancel restores original; close discards draft; empty word rejected; save updates same ID and creation time without duplicates; list refresh and selection; repeated saves; return updated note to lookup.
+PASS Database updates persist after reopening; identical notes distinguished by ID; stale and missing records cannot be overwritten; parameterized quotes/newlines preserved.
+All data belongs to the isolated test directory; no real user notes were accessed.

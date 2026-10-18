@@ -1,0 +1,15 @@
+/app/
+/tools/
+/data/
+/work/
+**/bin/
+**/obj/
+*.user
+.env
+.env.*
+*.db
+*.db-wal
+*.db-shm
+!/src/data/dictionary.db
+!/src/data/syllables.db
+/verification/migration.json

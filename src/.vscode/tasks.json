@@ -1,0 +1,8 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {"label": "编译 DEMO", "type": "shell", "command": "powershell", "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}/build.ps1"], "group": {"kind": "build", "isDefault": true}, "problemMatcher": "$msCompile"},
+    {"label": "运行 DEMO", "type": "shell", "command": "powershell", "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}/run.ps1"], "problemMatcher": []},
+    {"label": "验证 DEMO", "type": "shell", "command": "powershell", "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}/build.ps1", "-SelfTest"], "problemMatcher": "$msCompile"}
+  ]
+}

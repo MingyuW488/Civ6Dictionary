@@ -1,0 +1,11 @@
+bin/
+obj/
+.tools/
+.packages/
+*.user
+*.db
+!data/dictionary.db
+!data/syllables.db
+*.db-shm
+*.db-wal
+.env

@@ -1,0 +1,11 @@
+{
+  "name": "Moby Hyphenator II",
+  "author": "Grady Ward",
+  "source": "https://www.gutenberg.org/ebooks/3204",
+  "archive_url": "https://www.gutenberg.org/files/3204/files.zip",
+  "archive_sha256": "fc7e5ddc173e3150eb3f611f2ad91df63845ac9f2d9d1bc86562e57c1463c6f2",
+  "payload_sha256": "eeb30474c86b8af3469035ec1a0913e35905325ca885290db9dfed9881e230ac",
+  "grant": "Public Domain material by grant from the author, January, 2001.",
+  "entries": 167763,
+  "note": "Written hyphenation divisions, not a phonetic syllabification or stress dictionary. Non-divided and missing words are not guessed."
+}

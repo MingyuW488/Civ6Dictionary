@@ -1,0 +1,1 @@
+PASS 27 checks: legacy migration, collection, import, deduplication, literal search, Chinese, context, linked notes/edit, pagination, full detail, export, removal, persistence. No real API requests; isolated test data.

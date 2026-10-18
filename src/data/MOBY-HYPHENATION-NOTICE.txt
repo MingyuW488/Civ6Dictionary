@@ -1,0 +1,49 @@
+*** START OF THE PROJECT GUTENBERG EBOOK 3204 ***
+
+
+
+
+Moby (tm) Hyphenator II Documentation Notes
+
+This documentation, the software and/or database are:
+
+Public Domain material by grant from the author, January, 2001.
+
+
+Moby (tm) Hyphenator II for MSDOS operating systems is compressed
+and distributed as a single zip file.  After decompression the
+hyphanation file included with this product is in ordinary ASCII
+format with CRLF (ASCII 13/10) delimiters.
+
+
+
+MOBY Hyphenator II CONTENTS
+
+Hyphenation list (https://www.gutenberg.org/files/3204/files/mhyph.txt)
+
+
+
+
+Quick Start
+1) Insure you have at least 3Mb of free disk space to hold the contents
+   of this zip file.
+2) Create a directory to hold these files listed above.
+3) Extract the contents of this zip file into the destination directory
+   using any compatible zip file extraction utility.
+4) Delete the original zip file from your disk to save space.  (optional)
+
+
+After self-decompression the vocabulary files included with this
+product are in ordinary ASCII format with CRLF (ASCII 13/10)
+delimiters.  The hyphenation marks are indicated with ASCII 165
+character, which is significant in alphabetization.
+
+Note that words that ought *not* to be hyphenated are included for
+completeness.
+
+
+Once decompressed, the vocabulary files may be viewed and used just
+as any TEXT-type file might.
+
+
+*** END OF THE PROJECT GUTENBERG EBOOK 3204 ***

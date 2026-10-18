@@ -1,0 +1,27 @@
+<Window x:Class="Civ6EnglishDemo.NoteDetailsWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="笔记详情" Width="860" Height="720" MinWidth="560" MinHeight="480" WindowStartupLocation="CenterOwner" ShowInTaskbar="False" FontFamily="Microsoft YaHei UI" FontSize="15" Background="#F3F5F8" Foreground="#243447">
+ <Grid Margin="24" Background="#F3F5F8">
+  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+  <TextBlock Text="笔记详情" FontSize="25" FontWeight="SemiBold"/>
+  <StackPanel Grid.Row="1" Margin="0,12,0,12">
+   <TextBlock x:Name="CreatedText" Foreground="#64748B" Margin="0,0,0,8"/>
+   <TextBlock Text="单词 / 短语" FontWeight="SemiBold"/>
+   <TextBox x:Name="WordDetail" IsReadOnly="True" TextWrapping="Wrap" MaxHeight="100" VerticalContentAlignment="Top" VerticalScrollBarVisibility="Auto" FontSize="18"/>
+  </StackPanel>
+  <GroupBox Grid.Row="2" Header="游戏原句" Margin="0,0,0,12">
+   <TextBox x:Name="ContextDetail" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="0" BorderThickness="0"/>
+  </GroupBox>
+  <GroupBox Grid.Row="3" Header="个人笔记" Margin="0,0,0,16">
+   <TextBox x:Name="NoteDetail" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="0" BorderThickness="0"/>
+  </GroupBox>
+  <StackPanel Grid.Row="4">
+   <TextBlock x:Name="EditStatus" Text="内容可复制和滚动；点击“修改”编辑这条笔记。" Foreground="#64748B" TextWrapping="Wrap" Margin="0,0,0,12"/>
+   <WrapPanel HorizontalAlignment="Right">
+    <Button x:Name="EditNoteButton" Content="修改" Click="EditNote_Click" Background="#D4EAE4"/>
+    <Button x:Name="SaveChangesButton" Content="保存修改" Click="SaveChanges_Click" Visibility="Collapsed" Background="#D4EAE4"/>
+    <Button x:Name="CancelChangesButton" Content="取消修改" Click="CancelChanges_Click" Visibility="Collapsed"/>
+    <Button x:Name="UseNoteButton" Content="带回查词页" Click="UseNote_Click"/>
+    <Button x:Name="CloseDetailButton" Content="关闭" Click="CloseDetail_Click" IsCancel="True" Margin="0,0,0,8"/>
+   </WrapPanel>
+  </StackPanel>
+ </Grid>
+</Window>
